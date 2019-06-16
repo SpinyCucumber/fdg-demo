@@ -65,13 +65,15 @@ public class ForceSimulation {
 	
 	private Graph<Body> graph;
 	private FloatFunction attractFunc, repulseFunc, dampFunc;
+	private Vec2f gravity;
 	
-	public ForceSimulation(Graph<Body> graph, FloatFunction attractFunc, FloatFunction repulseFunc, FloatFunction dampFunc) {
+	public ForceSimulation(Graph<Body> graph, FloatFunction attractFunc, FloatFunction repulseFunc, FloatFunction dampFunc, Vec2f gravity) {
 		super();
 		this.graph = graph;
 		this.attractFunc = attractFunc;
 		this.repulseFunc = repulseFunc;
 		this.dampFunc = dampFunc;
+		this.gravity = gravity;
 	}
 
 	public void update(float dt) {
@@ -87,6 +89,9 @@ public class ForceSimulation {
 				Vec2f force = diff.scaledBy(node.getNeighbors().contains(other) ? repulseFunc.apply(distance) : -attractFunc.apply(distance));
 				totalForce.add(force);
 			}
+			// Add gravity
+			totalForce.add(gravity);
+			// Add damping
 			totalForce.add(node.getData().getVelocity().scaledBy(-dampFunc.apply(node.getData().getVelocity().length())));
 			
 			// Integrate out junk

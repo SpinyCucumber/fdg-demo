@@ -70,7 +70,7 @@ public class FDGTest {
 	private GraphRenderer renderer;
 	private ForceSimulation simulation;
 	private Timer timer;
-	private int windowWidth = 1040, windowHeight = 800, nNodes = 60, nConns = 64;
+	private int windowWidth = 1040, windowHeight = 800, nNodes = 60, nConns = 59;
 	private float timeScale = 1.0f;
 	// A logger
 	public static Logger log = LogManager.getLogger(FDGTest.class);
@@ -81,6 +81,7 @@ public class FDGTest {
 		log.info("LWJGL Version: " + Version.getVersion());
 
 		init();
+		timer.getDeltaTime();
 		loop();
 
 		log.info("Exiting");
@@ -162,8 +163,8 @@ public class FDGTest {
 		// graph = Graph.createTree(ForceSimulation.Body.class, 4, 4).graph;
 		graph = new Graph<>(ForceSimulation.Body.class);
 		renderer = new GraphRenderer(graph);
-		simulation = new ForceSimulation(graph, new ForceSimulation.InverseSquare(1000.0f), new ForceSimulation.LinearFunc(0.05f),
-				new ForceSimulation.LinearFunc(0.04f));
+		simulation = new ForceSimulation(graph, new ForceSimulation.InverseSquare(500.0f), new ForceSimulation.LinearFunc(0.05f),
+				new ForceSimulation.LinearFunc(0.05f), new Vec2f(0.0f, 0.0f));
 		timer = new Timer();
 		resetGraph();
 		
