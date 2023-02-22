@@ -95,8 +95,8 @@ public class ForceSimulation {
 			totalForce.add(node.getData().getVelocity().scaledBy(-dampFunc.apply(node.getData().getVelocity().length())));
 			
 			// Integrate out junk
-			node.getData().getPosition().add(node.getData().getVelocity().scaledBy(dt));
 			node.getData().getVelocity().add(totalForce.scaledBy(node.getData().invMass * dt));
+			node.getData().getPosition().add(node.getData().getVelocity().scaledBy(dt));
 			
 		}
 	}
